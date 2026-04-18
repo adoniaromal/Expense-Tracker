@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
@@ -6,7 +7,7 @@ function App() {
   const [expenseAmount, setExpenseAmount] = useState("");
   const [expenseDate, setExpenseDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
-  const budgetLimit = 5000;
+  const [budgetLimit, setBudgetLimit] = useState("5000");
 
   useEffect(() => {
     fetchExpenses();
@@ -101,44 +102,82 @@ function App() {
     }
   }
 
+  const remainingBudget = Number(budgetLimit) - total;
+
   return (
     <div className="container">
       <h2>PERSONAL EXPENSE TRACKER</h2>
 
       <div className="formbox">
-        <label>Expense Name:</label>
-        <input
-          type="text"
-          placeholder="Enter expense name"
-          value={expenseName}
-          onChange={(e) => setExpenseName(e.target.value)}
-        />
+        <div>
+          <label>Expense Name:</label>
+          <input
+            type="text"
+            placeholder="Enter expense name"
+            value={expenseName}
+            onChange={(e) => setExpenseName(e.target.value)}
+          />
+        </div>
 
-        <label>Amount:</label>
-        <input
-          type="number"
-          placeholder="Enter expense amount"
-          value={expenseAmount}
-          onChange={(e) => setExpenseAmount(e.target.value)}
-        />
+        <div>
+          <label>Amount:</label>
+          <input
+            type="number"
+            placeholder="Enter expense amount"
+            value={expenseAmount}
+            onChange={(e) => setExpenseAmount(e.target.value)}
+          />
+        </div>
 
-        <label>Date:</label>
-        <input
-          type="date"
-          value={expenseDate}
-          onChange={(e) => setExpenseDate(e.target.value)}
-        />
+        <div>
+          <label>Date:</label>
+          <input
+            type="date"
+            value={expenseDate}
+            onChange={(e) => setExpenseDate(e.target.value)}
+          />
+        </div>
 
-        <button onClick={addExpense}>Add Expense</button>
+        <div>
+          <button onClick={addExpense}>Add Expense</button>
+        </div>
       </div>
 
-      <div className="month-filter">
-        <label>Select Month:</label>
-        <input
-          type="month"
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        />
+      <div className="top-section">
+        <div className="month-filter">
+          <div>
+            <label>Select Month:</label>
+            <input
+              type="month"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="budget-box">
+          <div>
+            <label>Set Budget Limit:</label>
+            <input
+              type="number"
+              value={budgetLimit}
+              onChange={(e) => setBudgetLimit(e.target.value)}
+              placeholder="Enter budget limit"
+            />
+          </div>
+
+          <div className="budget-info">
+            <p>
+              <strong>Budget Limit:</strong> ₹{budgetLimit}
+            </p>
+            <p className={remainingBudget < 0 ? "negative-budget" : ""}>
+            <strong>
+              {remainingBudget < 0 ? "Overspent by:": "Remaining Budget:"}
+            </strong>{" "}
+            ₹{Math.abs(remainingBudget)}
+            </p>
+          </div>
+        </div>
       </div>
 
       <table>
@@ -160,7 +199,14 @@ function App() {
               <td>₹{expense.amount}</td>
               <td>{expense.date}</td>
               <td>
-                <button onClick={() => deleteExpense(expense._id)}>Delete</button>
+                <button onClick={() => {
+                  if (window.confirm("Are you sure you want to delete this expense?")) {
+                    deleteExpense(expense._id);
+                  }
+                }}
+                >
+                Delete
+                </button>
               </td>
             </tr>
           ))}

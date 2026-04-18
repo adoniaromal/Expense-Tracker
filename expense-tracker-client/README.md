@@ -1,16 +1,42 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Expense Tracker 💰
 
-Currently, two official plugins are available:
+A full-stack personal expense tracker built using React, Node.js, Express, and MongoDB.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- Add expenses with name, amount, and date
+- Delete expenses
+- Monthly filtering
+- Total spending calculation
+- Budget warning system
+- Highlights highest expense
 
-## React Compiler
+## Tech Stack
+- Frontend: React (Vite)
+- Backend: Node.js, Express
+- Database: MongoDB Atlas
+- Styling: CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Structure
+expense-tracker/
+├── expense-tracker-client (React frontend)
+├── server (Node + Express backend)
 
-## Expanding the ESLint configuration
+## How to Run Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+cd server
+npm install
+node server.js
+
+### Frontend
+cd expense-tracker-client
+npm install
+npm run dev
+
+## Notes
+- MongoDB connection is secured using environment variables (.env)
+- .env file is not included in repository for security
+
+## Author
+Adonia Alphonsa Romal
